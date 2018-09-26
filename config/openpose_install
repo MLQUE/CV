@@ -70,9 +70,78 @@ g++ -std=c++11 removeRedEyes.cpp `pkg-config --libs --cflags opencv` -o removeRe
 # run
 ./removeRedEyes #download the RemoveRedEyes from internet
 
-2 install caffe and link it in openpose
+2 install cunda8.0+cudnn5.1
+sudo sh cuda_8.0.61_375.26_linux.run #download cuda_8.0.61_375.26_linux.run
+#add it to env path
+sudo gedit /etc/profile
+export PATH=/usr/local/cuda-8.0/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64$LD_LIBRARY_PATH
+sudo reboot #restart for the path config
+
+tar -zxvf cudnn-8.0-linux-x64-v5.1.tgz #download cudnn and unzip
+sudo cp cuda/include/cudnn.h /usr/local/cuda/include/
+sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64/
+sudo chmod a+r /usr/local/cuda/include/cudnn.h
+sudo chmod a+r /usr/local/cuda/lib64/libcudnn*
+
+3 install caffe and link it in openpose
+
+git clone https://github.com/BVLC/caffe.git
+cd caffe
+cp Makefile.config.example Makefile.config
+sudo gedit Makefile.config
+#edit Makefile.config
+1
+OPENCV_VERSION :=3 
+USE_OPENCV := 0
+to
+#OPENCV_VERSION :=3 
+#USE_OPENCV := 0
+2
+INCLUDE_DIRS := $(PYTHON_INCLUDE) /usr/local/include
+LIBRARY_DIRS := $(PYTHON_LIB) /usr/local/lib /usr/lib 
+to
+INCLUDE_DIRS := $(PYTHON_INCLUDE) /usr/local/include /usr/include/hdf5/serial
+LIBRARY_DIRS := $(PYTHON_LIB) /usr/local/lib /usr/lib /usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/hdf5/serial       
+
+sudo gedit Makefile
+#edit Makefile
+
+LIBRARIES +=opencv_imgcodecs
+to
+LIBRARIES += opencv_imgcodecs  opencv_core opencv_highgui opencv_imgproc opencv_imgcodecs
+
+LIBRARIES += glog gflags protobuf boost_system boost_filesystem m
+to
+LIBRARIES += glog gflags protobuf boost_system boost_filesystem m hdf5_serial_hl hdf5_serial
+
+cd /path/to/caffe
+make all
+make test
+make runtest #test for caffe install(successful or failure)
+
+4 install openpose
+
+open cmake gui
+change the caffe lib and include
+click the Configure button 
+click the Generate button
+cd /path/to/openpose/build
+make -j'nproc'
+#test for openpose install
+./build/examples/openpose/openpose.bin --video examples/media/video.avi
 
 
-3 install openpose
 
 
+
+
+
+
+
+
+REFERENCE
+https://www.learnopencv.com/install-opencv3-on-ubuntu/ #opencv install
+https://blog.csdn.net/qq897107499/article/details/79266348  #openpose install(chinese version)
+https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/installation.md #openpose install(official)
+PROBLEM SOLUTION
