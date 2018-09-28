@@ -145,3 +145,13 @@ https://www.learnopencv.com/install-opencv3-on-ubuntu/ #opencv install
 https://blog.csdn.net/qq897107499/article/details/79266348  #openpose install(chinese version)
 https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/installation.md #openpose install(official)
 PROBLEM SOLUTION
+udo apt install python-pip
+sudo apt install python-numpy
+sudo apt install gfortran
+################## pip install some pkg modules!!!#################
+for req in $(cat python/requirements.txt); do pip install $req; done
+sudo pip install -r python/requirements.txt 
+###################################################################
+
+
+
