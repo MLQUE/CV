@@ -1,3 +1,40 @@
+##############the most import thing#######################
+#you can just follow https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/installation.md to install openpose
+1 install nvidia driver
+2 install cuda and cudnn 
+git clone https://github.com/CMU-Perceptual-Computing-Lab/openpose
+cd /path/to/openpose
+cd 3rdparty
+git clone https://github.com/CMU-Perceptual-Computing-Lab/caffe
+cd caffe
+sudo cp ********.Makefile.config.example(choose what you want) Makefile.config 
+cd /path/to/openpose
+sudo ubuntu/install_cuda.sh
+sudo ubuntu/install_cudnn.sh
+get the models
+COCO model: download in models/pose/coco/.
+MPI model: download in models/pose/mpi/.
+Face model: download in models/face/.
+Hands model: download in models/hand/.
+put all in the right way.
+3 install some request (you need install the pip first)
+sudo bash ./ubuntu/install_cmake.sh
+4 install opencv
+apt-get install libopencv-dev
+5 install cmake gui
+sudo apt-get install cmake--qt-gui
+5 build openpose use cmake-gui
+a /path/to/openpose
+b /path/to/openpose/build
+c choose Unix Makefiles and use default native compilers finish
+d configure and generate
+done
+
+
+############################################################
+
+
+
 1 install opencv
 
 sudo apt-get update
