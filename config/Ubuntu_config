@@ -1,6 +1,23 @@
-init
-primary memory+2GB swap
-logic /
-select the best sever on software update
+#init
+#primary memory+2GB swap
+#logic /
+#select the best sever on software update
 
-umount disk 
+#umount disk 
+#look the disk
+df -h 
+#find the disk you want to mount
+#if it mount
+sudo umount /dev/sdb(your disk)
+#format disk
+mkfs -t ext4 /dev/sdb
+#mount disk
+sudo mount -t ext4 /dev/sdb /path/to/yourmountdir
+#configure for reboot
+#find the disk uuid
+ls -l /dev/disk/by-uuid
+#gedit config
+sudo gedit /etc/fstab
+#add a line in the file
+UUID=your_search_before(sdb) /path/to/yourmountdir ext4 defaults 0 0
+#save
