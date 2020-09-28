@@ -1,3 +1,3 @@
 # CV
-it is my first github for CV learning branch for test.
+it is my first github.
 2019
